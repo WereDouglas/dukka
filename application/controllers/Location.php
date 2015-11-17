@@ -99,8 +99,8 @@ class Location extends CI_Controller {
                 $b["info"] = $distancem . "metres";
             }
             /// echo json_encode($b);                 
-             if ((int) $distancem <= 20) {
-                $b["info"] = " too short " . (int) $distancem . "m";
+             if ((int) $distancem <= 10) {
+                $b["info"] = "" . (int) $distancem . " m";
                 echo json_encode($b);
                 return;
                } else {
