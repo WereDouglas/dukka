@@ -69,7 +69,7 @@
                                                  <td><a  href="<?php echo base_url()."index.php/user/session/". $loop->session."/".$username; ?>" target="myframe"><?=$loop->starttime?></a></td>
                                                   <td><?=$loop->endtime?></td>
                                                    <td><?php echo dateDiff($loop->starttime,$loop->endtime); ?></td>
-                                                    <td><a  href="<?php echo base_url(). "index.php/location/delete/".$loop->session."/".$username; ?>" target="myframe">delete</a></td>
+                                                    <td><a  href="<?php echo base_url(). "index.php/location/delete/".$loop->session."/".$username; ?>">delete</a></td>
                                                 <?php
                                             }
                                         }

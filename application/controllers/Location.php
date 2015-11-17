@@ -234,7 +234,7 @@ class Location extends CI_Controller {
          $username = $this->uri->segment(4);
         $query = $this->Md->delete_query("Delete from location where session ='".$session."'");
        
-            redirect('/user/location'.$username, 'refresh');
+            redirect('/user/location/'.$username, 'refresh');
         
     }
 
