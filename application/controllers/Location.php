@@ -59,10 +59,10 @@ class Location extends CI_Controller {
         $session = $this->input->post('session');
 
 
-        $username = "Douglas";
-        $lat = "0.2207913";
-        $lng = "32.1943488";
-        $session = "douglas04ut90ru1";
+       // $username = "Douglas";
+        //$lat = "0.2207913";
+        //$lng = "32.1943488";
+        //$session = "douglas04ut90ru1";
 
 
         $dist = 0;
