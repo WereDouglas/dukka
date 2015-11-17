@@ -22,7 +22,7 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
-<?php require_once(APPPATH . 'views/date.php'); ?> 
+
 
 
 
@@ -31,6 +31,7 @@
                 <div class="heading-section col-md-12 text-center">
                     <h4>Tracking <?php echo ' '.$username.' '; ?> </h4>
                     <input type="hidden" id="username" name="username" value="<?=$username?>"/>
+                      <input type="hidden" id="session" name="session" value="<?=$session?>"/>
                 </div> <!-- /.heading-section -->
             </div> <!-- /.row -->
             <div class="row">
@@ -40,38 +41,8 @@
                     </div> <!-- /.googlemap-wrapper -->
                 </div> <!-- /.col-md-12 -->
             </div> <!-- /.row -->
-            <h5>Sessions</h5>
-            <table class="jobs table table-striped table-bordered bootstrap-datatable datatable" id="datatable">
-                 <thead>
-                                        <tr>  
-                                            
-                                            <th>Session</th>
-                                            <th>Total distance(Km)</th>
-                                            <th>Start time</th>
-                                            <th>End time</th>
-                                            <th>Total time</th>
-                                            
-                                           
-                                        </tr>
-                                    </thead>   
-                                    <tbody>
-              <?php
-                                        if (is_array($sessions) && count($sessions)) {
-                                              foreach ($sessions as $loop) {  
-                                                ?> 
-                                           <tr >  
-                                               <td> <li><a  href="<?php echo base_url(). "index.php/user/session/". $loop->session."/".$username; ?>" target="myframe"><?=$loop->session?></a></li></td>
-                                                <td><?=($loop->total/1000)?></td>
-                                                 <td><?=$loop->starttime?></td>
-                                                  <td><?=$loop->endtime?></td>
-                                                   <td><?php echo dateDiff($loop->starttime,$loop->endtime); ?></td>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                               </tr>  
-            </table>
-<!--             
+            
+             
      <table class="jobs table table-striped table-bordered bootstrap-datatable datatable" id="datatable">
                                     <thead>
                                         <tr>  
@@ -105,7 +76,7 @@
                                         ?>
 
                                     </tbody>
-                                </table>     -->
+                                </table>     
         </div> <!-- /.container -->
         <div id="footer">
 
@@ -203,10 +174,10 @@ function initialize() {
     </script>
 	<script>
               
-	   var form_data = { username: $('#username').val() };
+	   var form_data = { username: $('#username').val(), session: $('#session').val() };
 				$.ajax({
 					 type : 'POST',
-					 url : "<?php echo base_url()?>index.php/user/movement" ,
+					 url : "<?php echo base_url()?>index.php/user/session_movement" ,
                                           dataType: 'json',
                                            data: form_data,
 					 success : function(data) {

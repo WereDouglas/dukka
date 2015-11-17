@@ -48,84 +48,78 @@ class Location extends CI_Controller {
 
         $this->load->view('view-all', $data);
     }
-     public function save() {
-    
+
+    public function save() {
+
         $this->load->helper(array('form', 'url'));
-      
+
         $username = $this->input->post('username');
         $lat = $this->input->post('lat');
         $lng = $this->input->post('lng');
         $session = $this->input->post('session');
-        
-     
-         // $username = "Douglas";
-            
-         // $userid = "23";
-         // $lat = "0.2207913";
-         // $long = "32.9943488";
-        // $session = "douglas04ut90ru";
-       
-          
-              $dist = 0;
-              $distance = 0;
-              $distancem =0;
-         
+
+
+        $username = "Douglas";
+        $lat = "0.2207913";
+        $lng = "32.1943488";
+        $session = "douglas04ut90ru1";
+
+
+        $dist = 0;
+        $distance = 0;
+        $distancem = 0;
+
         $created = date('Y-m-d H:i:s');
         if ($username != "") {
-            $results = $this->Md->query("select * from location where username ='" . $username . "'");
+            $results = $this->Md->query("select * from location where username ='" . $username . "' and session='" . $session . "'");
 
             if (!$results) {
 
-                $locate = array('username' => $username, 'distance' => "0", 'session' => $session,'lat' => $lat, 'lng' => $lng, 'created' => $created);
+                $locate = array('username' => $username, 'distance' => "0", 'session' => $session, 'lat' => $lat, 'lng' => $lng, 'created' => $created);
                 $this->Md->save($locate, 'location');
-                $b["info"] = "submitted first one";
+                $b["info"] = "starting session........";
                 echo json_encode($b);
                 return;
             }
-            $resulte = $this->Md->query("select * from location where username ='".$username."' ORDER BY id DESC LIMIT 0, 1 " );
+            $resulte = $this->Md->query("select * from location where username ='" . $username . "' and session='" . $session . "' ORDER BY id DESC LIMIT 0, 1 ");
             // $b["posted"] =  $results;             
-             
+
             foreach ($resulte as $res) {
 
-                
+
                 $lat2 = $res->lat;
                 $lng2 = $res->lng;
-                
             }
-             //  echo $b["distance"] = $this->distance(0.3419071 , 32.5944203 , 0.3419071 , 32.5944204 , "K") . "Km";
-              if($lat != NULL && $lng!=NULL) {
-                  
-                $dist = $this->distance( $lat2, $lng2,$lat, $lng, "K");
+            //  echo $b["distance"] = $this->distance(0.3419071 , 32.5944203 , 0.3419071 , 32.5944204 , "K") . "Km";
+            if ($lat != NULL && $lng != NULL) {
+
+                $dist = $this->distance($lat2, $lng2, $lat, $lng, "K");
                 $distance = ($dist * 1000);
                 $distancem = number_format($distance, 1);
                 $b["info"] = $distancem . "metres";
-                      
-               }
-               
-                /// echo json_encode($b);                 
+            }
+            /// echo json_encode($b);                 
 
-                if (bccomp($lat, $lat2)==0 && bccomp($lng,$lng2)==0) {
-                    $b["info"] = $distancem . "m same location";
-                    echo json_encode($b);
-                    return;
-                } else if((int)$distancem <= 20) {                 
+            if (bccomp($lat, $lat2) == 0 && bccomp($lng, $lng2) == 0) {
+                $b["info"] = (int) $distancem . "m same location";
+                echo json_encode($b);
+                return;
+            } else if ((int) $distancem <= 20) {
+                $b["info"] = " too short " . (int) $distancem . "m";
+                echo json_encode($b);
+            } else {
+                $locate = array('username' => $username, 'distance' => (int) $distancem, 'session' => $session, 'lat' => $lat, 'lng' => $lng, 'created' => $created);
+                $this->Md->save($locate, 'location');
+                $totals = $this->Md->query("select sum(distance) as totals from location where session ='" . $session . "'");
 
-                        $b["info"] = " too short " . (int)$distancem . "m";
-                        echo json_encode($b);
-                    } else {
-                        $locate = array('username' => $username, 'distance' => (int)$distancem,'session' => $session, 'lat' => $lat, 'lng' => $lng, 'created' => $created);
-                        $this->Md->save($locate, 'location');
-
-                         $totals = $this->Md->query("select sum(distance) as totals from location where session ='".$session."'" );                  
-             
-                   foreach ($totals as $res) {                
-                     $totals = $res->totals;                             
-                    }                        
-                        $b["info"] = "submitted distance:". (int)$distancem.'  total distance: '.$totals;
-                        echo json_encode($b);
-                        $lat= 0 ;$lng= 0;
-                    }              
-
+                foreach ($totals as $res) {
+                    $totals = $res->totals;
+                }
+                $b["info"] = "interval distance:" . ((int) $distancem/1000 ). 'Km  total distance: ' . ($totals/1000).'Km';
+                echo json_encode($b);
+                $lat = 0;
+                $lng = 0;
+            }
         } else {
 
             $b["info"] = "invalid user";
@@ -134,29 +128,55 @@ class Location extends CI_Controller {
     }
 
     public function session() {
-    
-         $this->load->helper(array('form', 'url'));
-          $this->load->helper('string');
-      
-        $username = $this->input->post('username');      
+
+        $this->load->helper(array('form', 'url'));
+        $this->load->helper('string');
+
+        $username = $this->input->post('username');
         $status = $this->input->post('status');
-         if ($status=="start"){
-             $sid = random_string('alnum', 16);
-             $b["session"] = $sid;
-              echo json_encode($b);
-              return;
+        if ($status == "start") {
+            $sid = random_string('alnum', 16);
+            $b["session"] = $sid;
+            echo json_encode($b);
+            return;
         }
-        if ($status=="stop"){
+        if ($status == "stop") {
             $sid = random_string('alnum', 16);
             $b["session"] = "";
             echo json_encode($b);
             return;
-            
         }
-       
-        
-     
-        
+    }
+
+    public function dateDiff($start, $end) {
+
+        $mydate = $end;
+        $theDiff = "";
+        //echo $mydate;//2014-06-06 21:35:55
+        $datetime1 = date_create($start);
+        $datetime2 = date_create($mydate);
+        $interval = date_diff($datetime1, $datetime2);
+        //echo $interval->format('%s Seconds %i Minutes %h Hours %d days %m Months %y Year    Ago')."<br>";
+        $min = $interval->format('%i');
+        $sec = $interval->format('%s');
+        $hour = $interval->format('%h');
+        $mon = $interval->format('%m');
+        $day = $interval->format('%d');
+        $year = $interval->format('%y');
+        if ($interval->format('%i%h%d%m%y') == "00000") {
+            //echo $interval->format('%i%h%d%m%y')."<br>";
+            return $sec . " Seconds";
+        } else if ($interval->format('%h%d%m%y') == "0000") {
+            return $min . " Minutes";
+        } else if ($interval->format('%d%m%y') == "000") {
+            return $hour . " Hours";
+        } else if ($interval->format('%m%y') == "00") {
+            return $day . " Days";
+        } else if ($interval->format('%y') == "0") {
+            return $mon . " Months";
+        } else {
+            return $year . " Years";
+        }
     }
 
     /* :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
