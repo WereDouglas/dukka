@@ -40,7 +40,8 @@
                     </div> <!-- /.googlemap-wrapper -->
                 </div> <!-- /.col-md-12 -->
             </div> <!-- /.row -->
-            <h5>Sessions</h5>
+            <h2>Sessions</h2>
+            
             <table class="jobs table table-striped table-bordered bootstrap-datatable datatable" id="datatable">
                  <thead>
                                         <tr>  
@@ -50,6 +51,7 @@
                                             <th>Start time</th>
                                             <th>End time</th>
                                             <th>Total time</th>
+                                             <th></th>
                                             
                                            
                                         </tr>
@@ -57,14 +59,17 @@
                                     <tbody>
               <?php
                                         if (is_array($sessions) && count($sessions)) {
-                                              foreach ($sessions as $loop) {  
+                                            $cr = 0;
+                                              foreach ($sessions as $loop) { 
+                                                $cr++;   
                                                 ?> 
                                            <tr >  
-                                               <td> <li><a  href="<?php echo base_url(). "index.php/user/session/". $loop->session."/".$username; ?>" target="myframe"><?=$loop->session?></a></li></td>
-                                                <td><?=($loop->total/1000)?></td>
-                                                 <td><?=$loop->starttime?></td>
+                                               <td> <li><a  href="<?php echo base_url()."index.php/user/session/". $loop->session."/".$username; ?>" target="myframe"><?=$cr?></a></li></td>
+                                                 <td><a  href="<?php echo base_url()."index.php/user/session/". $loop->session."/".$username; ?>" target="myframe"><?=($loop->total/1000)?></a></td>
+                                                 <td><a  href="<?php echo base_url()."index.php/user/session/". $loop->session."/".$username; ?>" target="myframe"><?=$loop->starttime?></a></td>
                                                   <td><?=$loop->endtime?></td>
                                                    <td><?php echo dateDiff($loop->starttime,$loop->endtime); ?></td>
+                                                    <td><a  href="<?php echo base_url(). "index.php/location/delete/".$loop->session."/".$username; ?>" target="myframe">delete</a></td>
                                                 <?php
                                             }
                                         }

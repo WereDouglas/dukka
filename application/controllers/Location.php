@@ -230,18 +230,18 @@ class Location extends CI_Controller {
 
     public function delete() {
 
-        $id = $this->uri->segment(3);
-
-        $query = $this->Md->delete($id, 'metar');
+        $session = $this->uri->segment(3);
+         $username = $this->uri->segment(4);
+        $query = $this->Md->query("Delete from location where session ='".$session."'");
 
         if ($this->db->affected_rows() > 0) {
             $msg = '<span style="color:red">Information Deleted Fields</span>';
             $this->session->set_flashdata('msg', $msg);
-            redirect('/metar', 'refresh');
+            redirect('/user/'.$username, 'refresh');
         } else {
             $msg = '<span style="color:red">action failed</span>';
             $this->session->set_flashdata('msg', $msg);
-            redirect('/metar', 'refresh');
+            redirect('/user/'.$username, 'refresh');
         }
     }
 
