@@ -137,8 +137,8 @@ class Location extends CI_Controller {
             return;
         }
         if ($status == "stop") {
-            $sid = random_string('alnum', 16);
-            $b["session"] = "no session";
+            
+            $b["session"] = "";
             echo json_encode($b);
             return;
         }
