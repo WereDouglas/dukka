@@ -45,6 +45,12 @@ class Md extends CI_Model {
         $this->db->query($sql, array($id));
         return $this->db->affected_rows();
     }
+     function delete_query($query) {
+
+        $sql = $query;
+        $this->db->query($sql);
+        return $this->db->affected_rows();
+    }
 
     function get($field, $value, $table) {
         $this->db->select('*');
