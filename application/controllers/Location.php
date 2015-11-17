@@ -132,12 +132,11 @@ class Location extends CI_Controller {
         $status = $this->input->post('status');
         if ($status == "start") {
             $sid = random_string('alnum', 16);
-            $b["session"] = "new session";
+            $b["session"] = $sid;
             echo json_encode($b);
             return;
         }
-        if ($status == "stop") {
-            
+        if ($status == "stop") {            
             $b["session"] = "";
             echo json_encode($b);
             return;
