@@ -99,15 +99,11 @@ class Location extends CI_Controller {
                 $b["info"] = $distancem . "metres";
             }
             /// echo json_encode($b);                 
-
-            if (bccomp($lat, $lat2) == 0 && bccomp($lng, $lng2) == 0) {
-                $b["info"] = (int) $distancem . "m same location";
-                echo json_encode($b);
-                return;
-            } else if ((int) $distancem <= 20) {
+             if ((int) $distancem <= 20) {
                 $b["info"] = " too short " . (int) $distancem . "m";
                 echo json_encode($b);
-            } else {
+                return;
+               } else {
                 $locate = array('username' => $username, 'distance' => (int) $distancem, 'session' => $session, 'lat' => $lat, 'lng' => $lng, 'created' => $created);
                 $this->Md->save($locate, 'location');
                 $totals = $this->Md->query("select sum(distance) as totals from location where session ='" . $session . "'");
@@ -136,13 +132,13 @@ class Location extends CI_Controller {
         $status = $this->input->post('status');
         if ($status == "start") {
             $sid = random_string('alnum', 16);
-            $b["session"] = $sid;
+            $b["session"] = "new session";
             echo json_encode($b);
             return;
         }
         if ($status == "stop") {
             $sid = random_string('alnum', 16);
-            $b["session"] = "";
+            $b["session"] = "no session";
             echo json_encode($b);
             return;
         }
