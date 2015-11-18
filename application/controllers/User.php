@@ -142,7 +142,7 @@ class User extends CI_Controller {
             $result = $this->Md->get('username', $username, 'user');
             // var_dump($result);
             foreach ($result as $res) {
-                $key = $email;
+                $key = $username;
                 $password = $this->encrypt->decode($res->password, $key);
 
                 if ($password_now == $password) {
@@ -159,7 +159,7 @@ class User extends CI_Controller {
                 }
             }
         } else {
-            $b["info"] = "invalid username!";
+                     $b["info"] = "invalid username!";
                      $b["status"] = "false";
                      echo json_encode($b);
                      return;
