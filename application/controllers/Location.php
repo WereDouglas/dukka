@@ -101,6 +101,7 @@ class Location extends CI_Controller {
             /// echo json_encode($b);                 
              if ((int) $distancem <= 1) {
                 $b["info"] =(int)$distancem."m";
+                $b["state"] ="paused";
                 echo json_encode($b);
                 return;
                } else {
@@ -113,6 +114,7 @@ class Location extends CI_Controller {
                 }
                 $totaled = ($totals/1000)."Km";
                 $b["info"] = "new:" . ((int) $distancem/1000 ). 'Km TOTAL: ' . ($totale/1000).'Km';
+                 $b["state"] ="run";
                 echo json_encode($b);
                 $lat = 0;
                 $lng = 0;
