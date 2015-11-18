@@ -96,11 +96,11 @@ class Location extends CI_Controller {
                 $dist = $this->distance($lat2, $lng2, $lat, $lng, "K");
                 $distance = (int)($dist * 1000);
                 $distancem = (int)number_format($distance, 1);
-                $b["info"] = $distancem . "metres";
+                $b["info"] = $distancem . "metres " ;
             }
             /// echo json_encode($b);                 
              if ((int) $distancem <= 1) {
-                $b["info"] = "" . (int) $distancem . " m";
+                $b["info"] = "" . (int) $distancem . "m total:".$totaled. "m";
                 echo json_encode($b);
                 return;
                } else {
@@ -109,9 +109,10 @@ class Location extends CI_Controller {
                 $totals = $this->Md->query("select sum(distance) as totals from location where session ='" . $session . "'");
 
                 foreach ($totals as $res) {
-                    $totals = $res->totals;
+                    $totale = $res->totals;
                 }
-                $b["info"] = "interval distance:" . ((int) $distancem/1000 ). 'Km  total distance: ' . ($totals/1000).'Km';
+                $totaled = ($totals/1000)."Km";
+                $b["info"] = "interval distance:" . ((int) $distancem/1000 ). 'Km  total distance: ' . ($totale/1000).'Km';
                 echo json_encode($b);
                 $lat = 0;
                 $lng = 0;
