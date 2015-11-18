@@ -97,6 +97,7 @@ class Location extends CI_Controller {
                 $distance = (int)($dist * 1000);
                 $distancem = (int)number_format($distance, 1);
                 $b["info"] = $distancem . "metres " ;
+                
             }
             /// echo json_encode($b);                 
              if ((int) $distancem <= 1) {
