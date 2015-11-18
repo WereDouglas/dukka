@@ -91,20 +91,17 @@ class User extends CI_Controller {
             redirect('/user', 'refresh');
         }
     }
-    
-    
-    public function register() {
+      public function register() {
 
         $this->load->helper(array('form', 'url'));
        
         $username = $this->input->post('username');
-        $password = $this->input->post('password');      
-
-
-        $get_result = $this->Md->check($username, 'username', 'user');
+        $password = $this->input->post('password'); 
+        
+       $get_result = $this->Md->check($username, 'username', 'user');
         if (!$get_result) {
            
-              $b["info"] = "username in use";
+                $b["info"] = "username in use";
                 $b["status"] = "false";
                 echo json_encode($b);
                 return;          
@@ -118,7 +115,7 @@ class User extends CI_Controller {
             
             $user = array( 'username' => $username, 'password' => $password, 'created' => date('Y-m-d'));
             $this->Md->save($user, 'user');           
-              $b["info"] = "registered";
+                $b["info"] = "registered";
                 $b["status"] = "true";
                 echo json_encode($b);
                 return;
@@ -129,6 +126,44 @@ class User extends CI_Controller {
                 echo json_encode($b);
                 return;
         }
+    }
+    
+    
+    public function login() {
+
+        $this->load->helper(array('form', 'url'));
+       
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');  
+        
+        
+        $get_result = $this->Md->check($username, 'username', 'user');
+        if (!$get_result) {         
+            $result = $this->Md->get('username', $username, 'user');
+            // var_dump($result);
+            foreach ($result as $res) {
+                $key = $email;
+                $password = $this->encrypt->decode($res->password, $key);
+
+                if ($password_now == $password) {
+                     $b["info"] = "login successfull";
+                     $b["status"] = "true";
+                     echo json_encode($b);
+                     return;
+                   
+                } else {
+                     $b["info"] = "invalid password";
+                     $b["status"] = "false";
+                     echo json_encode($b);
+                     return;
+                }
+            }
+        } else {
+            $b["info"] = "invalid username!";
+                     $b["status"] = "false";
+                     echo json_encode($b);
+                     return;
+        }            
     }
 
     public function update() {
