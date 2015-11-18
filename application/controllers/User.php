@@ -182,7 +182,6 @@ class User extends CI_Controller {
       public function view() {
 
         $data['locations'] = array();
-
         $username = $this->uri->segment(3);
 
         $data['username'] = $username;
@@ -194,6 +193,22 @@ class User extends CI_Controller {
         //var_dump($sessions);
      
         $this->load->view('view-user-mobile', $data);
+    }
+     public function mobile() {
+
+        $data['locations'] = array();
+
+        $username = $this->uri->segment(3);
+
+        $data['username'] = $username;
+        $all = $this->Md->query("select * from (select * from location where username = '" . $username . "'  order by id desc limit 500) location order by id desc");
+        $data['locations'] = $all;
+        //select session, SUM(distance) as total  from location WHERE session in (Select DISTINCT(session) FROM location) GROUP BY session
+        $sessions = $this->Md->query("select DISTINCT session,SUM(distance) as total,MIN(created)as starttime, MAX(created) as endtime  from location  where username='".$username."' AND session in (Select DISTINCT(session) FROM location) GROUP BY session");
+         $data['sessions'] = $sessions;
+        //var_dump($sessions);
+     
+        $this->load->view('view-user-mobile-sessions', $data);
     }
     
      public function session() {
@@ -207,6 +222,18 @@ class User extends CI_Controller {
         $data['locations'] = $all;        
      
         $this->load->view('view-session', $data);
+    }
+     public function mobilesession() {
+
+        $data['locations'] = array();
+        $session = $this->uri->segment(3);
+          $username = $this->uri->segment(4);
+        $data['username'] = $username;
+         $data['session'] = $session;
+        $all = $this->Md->query("select * from (select * from location where username = '" . $username . "' and session= '".$session."' order by id desc limit 500) location order by id desc");
+        $data['locations'] = $all;        
+     
+        $this->load->view('view-session-mobile', $data);
     }
      public function session_movement() {
         

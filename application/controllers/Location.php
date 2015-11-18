@@ -237,6 +237,15 @@ class Location extends CI_Controller {
             redirect('/user/location/'.$username, 'refresh');
         
     }
+    public function deletemobile() {
+
+        $session = $this->uri->segment(3);
+         $username = $this->uri->segment(4);
+        $query = $this->Md->delete_query("Delete from location where session ='".$session."'");
+       
+            redirect('/user/mobile/'.$username, 'refresh');
+        
+    }
 
     public function check($metar) {
         $this->load->helper(array('form', 'url'));
