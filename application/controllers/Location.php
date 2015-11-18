@@ -94,8 +94,8 @@ class Location extends CI_Controller {
             if ($lat != NULL && $lng != NULL) {
 
                 $dist = $this->distance($lat2, $lng2, $lat, $lng, "K");
-                $distance = ($dist * 1000);
-                $distancem = number_format($distance, 1);
+                $distance = (int)($dist * 1000);
+                $distancem = (int)number_format($distance, 1);
                 $b["info"] = $distancem . "metres";
             }
             /// echo json_encode($b);                 
