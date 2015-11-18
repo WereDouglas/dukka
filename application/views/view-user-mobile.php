@@ -1,29 +1,12 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-      
 
-        <link rel="stylesheet" href="<?= base_url(); ?>css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?= base_url(); ?>css/font-awesome.css">
-        <link rel="stylesheet" href="<?= base_url(); ?>css/animate.css">
-        <link rel="stylesheet" href="<?= base_url(); ?>css/templatemo_misc.css">
-        <link rel="stylesheet" href="<?= base_url(); ?>css/templatemo_style.css">
+    <html>
+    <head>
+        
 
         <script src="<?= base_url(); ?>js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-        <![endif]-->
-<?php require_once(APPPATH . 'views/date.php'); ?> 
-
+      
 
 
         <div class="row-fluid">
@@ -56,16 +39,14 @@
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSr836clPDtPAsp3iW0aE3rhcnKhsuPdE">
         </script>
 
-        <!-- Google Map 
-        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>  
-        <script src="<?= base_url(); ?>js/vendor/jquery.gmap3.min.js"></script> -->
+     
 
         <?php if(is_array($locations) && count($locations) ) {
 						           //var_dump($locations);
             $lat = $locations[0]->lat;
            $lng= $locations[0]->lng;
 		// $lat = '0.3417913';
-        echo   "last posted".$created= $locations[0]->created;			
+        echo  "last posted".$created= $locations[0]->created;			
             }
 	?>
        
