@@ -135,7 +135,7 @@ class User extends CI_Controller {
        
         $username = $this->input->post('username');
         $password = $this->input->post('password');  
-        
+        $password_now=  $password;
         
         $get_result = $this->Md->check($username, 'username', 'user');
         if (!$get_result) {         
