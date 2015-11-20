@@ -234,7 +234,7 @@ class User extends CI_Controller {
         $data['locations'] = array();
 
         $username = $this->uri->segment(3);
-        $username = "Douglas";
+        //$username = "Douglas";
 
         $data['username'] = $username;
         $all = $this->Md->query("select * from (select * from location where username = '" . $username . "'  order by id desc limit 500) location order by id desc");
@@ -263,7 +263,7 @@ class User extends CI_Controller {
 
         $data['locations'] = array();
         $session = $this->uri->segment(3);
-          $username = $this->uri->segment(4);
+        $username = $this->uri->segment(4);
         $data['username'] = $username;
          $data['session'] = $session;
         $all = $this->Md->query("select * from (select * from location where username = '" . $username . "' and session= '".$session."' order by id desc limit 500) location order by id desc");
@@ -285,7 +285,7 @@ class User extends CI_Controller {
         
         $data['movements'] = "";
         $username = $this->input->post('username');
-       $username = 'Douglas';
+        // $username = 'Douglas';
         // $movement = $this->Md->query("select * from location where username = '".$username."' LIMIT 20");
 
          $movement = array();
