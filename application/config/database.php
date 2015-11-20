@@ -64,9 +64,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'serviceug.cloudapp.net',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'root',
 	'database' => 'dukka',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
