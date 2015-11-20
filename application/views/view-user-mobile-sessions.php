@@ -37,12 +37,11 @@
             
             <table class="jobs table table-striped table-bordered bootstrap-datatable datatable" id="datatable">
                  <thead>
-                                        <tr>  
-                                            
+                                        <tr>
                                             <th>Session</th>
-                                            <th>Total distance(Km)</th>
-                                            <th>Start time</th>
-                                            <th>End time</th>
+                                            <th>Distance(Km)</th>
+                                               <th>End time</th>
+                                            <th>Start time</th>                                         
                                             <th>Total time</th>
                                              <th></th>
                                             
@@ -59,10 +58,11 @@
                                            <tr >  
                                                <td> <li><a  href="<?php echo base_url()."index.php/user/mobilesession/". $loop->session."/".$username; ?>" ><?=$cr?></a></li></td>
                                                  <td><a  href="<?php echo base_url()."index.php/user/mobilesession/". $loop->session."/".$username; ?>" ><?=($loop->total/1000)?></a></td>
-                                                 <td><a  href="<?php echo base_url()."index.php/user/mobilesession/". $loop->session."/".$username; ?>" ><?=$loop->starttime?></a></td>
                                                   <td><?=$loop->endtime?></td>
+                                                 <td><a  href="<?php echo base_url()."index.php/user/mobilesession/". $loop->session."/".$username; ?>" ><?=$loop->starttime?></a></td>
+                                                
                                                    <td><?php echo dateDiff($loop->starttime,$loop->endtime); ?></td>
-                                                    <td><a  href="<?php echo base_url(). "index.php/location/deletemobile/".$loop->session."/".$username; ?>">delete</a></td>
+                                                    <td><a  href="<?php echo base_url(). "index.php/location/deletemobile/".$loop->session."/".$username; ?>"><img width=20px" height="20px" src="<?= base_url(); ?>images/delete.png" alt=" delete" /></a></td>
                                                 <?php
                                             }
                                         }
@@ -71,9 +71,7 @@
             </table>
 
         </div> <!-- /.container -->
-        <div id="footer">
-
-        </div> <!-- /#footer -->
+     
 
 <!--<script type="text/javascript" src="js/jquery.min.js"></script> -->
         <script src="<?= base_url(); ?>js/vendor/jquery-1.11.0.min.js"></script>

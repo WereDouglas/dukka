@@ -234,6 +234,7 @@ class User extends CI_Controller {
         $data['locations'] = array();
 
         $username = $this->uri->segment(3);
+        $username = "Douglas";
 
         $data['username'] = $username;
         $all = $this->Md->query("select * from (select * from location where username = '" . $username . "'  order by id desc limit 500) location order by id desc");

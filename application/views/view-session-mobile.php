@@ -28,11 +28,10 @@
 
         <div class="row-fluid">
             <div class="row">
-                <div class="heading-section col-md-12 text-center">
-                    <h4>Tracking <?php echo ' '.$username.' '; ?> </h4>
+               
                     <input type="hidden" id="username" name="username" value="<?=$username?>"/>
                       <input type="hidden" id="session" name="session" value="<?=$session?>"/>
-                </div> <!-- /.heading-section -->
+              
             </div> <!-- /.row -->
             <div class="row">
                 <div class="col-md-12">
